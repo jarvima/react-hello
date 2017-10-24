@@ -1,0 +1,23 @@
+.poll-option {
+  margin-left: 30px;
+  display: table-row;
+}
+
+.option-selected {
+  display: table-cell;
+}
+.option-text {
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 10px;
+}
+
+.select-option svg {
+  width: 50px;
+  height: 30px;
+  fill: currentColor;
+  color: #eee;
+}
+.select-option.picked svg {
+  color: #1691BA;
+}

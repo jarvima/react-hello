@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import Result from './result/Result'
 import { connect } from 'react-redux'
 import { setActivePage } from '../../actions'
+import pollService from '../../actions/poll-service'
 import './Results.css';
 
 class Results extends Component {
-  render() {
-    let optionContent = (option) => {
-      return <div className="option-result">
-          <div>{option.text}</div>
-        </div>
-    }
+  componentWillMount() {
+    // TODO polling logic to refresh results
+    pollService.loadResults(this.props.dispatch);
+  }
 
-    let questionContent = (question) => {
-      return <div>
+  render() {
+    let questionContent = (question, index) => {
+      return <div key={index}>
           <div>{question.text}</div>
-          {question.options.map((option) =>
-            optionContent(option)
-          )}
+          <div className="options-wrapper">
+            {question.options.map((option, index) =>
+              <Result question={question} option={option} key={index}/>
+            )}
+          </div>
         </div>
     }
 
@@ -25,8 +28,8 @@ class Results extends Component {
       if (this.props.pollResults.length) {
         return <results-content>
             <div>Here is the Results.</div>
-            {this.props.pollResults.map((question) =>
-              questionContent(question)
+            {this.props.pollResults.map((question, index) =>
+              questionContent(question, index)
             )}
           </results-content>
       } else {
@@ -57,7 +60,8 @@ const mapDispatchToProps = dispatch => {
   return {
     gotoPoll: event => {
       dispatch(setActivePage('poll-page'))
-    }
+    },
+    dispatch
   }
 }
 

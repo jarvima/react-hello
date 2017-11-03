@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import RenderIf from './elements/RenderIf'
 import Poll from './pages/poll/Poll'
 import Results from './pages/results/Results'
-import PollService from './actions/PollService'
 
 class PollApp extends Component {
   render() {
@@ -13,25 +12,25 @@ class PollApp extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <RenderIf test={this.props.activePage === 'poll-page'}>
+        <RenderIf test={this.props.activePage2 === 'poll-page'}>
           <Poll></Poll>
         </RenderIf>
-        <RenderIf test={this.props.activePage === 'results-page'}>
+        <RenderIf test={this.props.activePage2 === 'results-page'}>
           <Results></Results>
         </RenderIf>
-        <PollService/>
       </poll-app>
     );
   }
 }
 
 PollApp.propTypes = {
-  activePage: PropTypes.string.isRequired, 
+  activePage2: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => {
+  console.log('PollApp mapStateToProps:', state)
   return {
-    activePage: state.activePage,
+    activePage2: state.activePage,
   }
 }
 

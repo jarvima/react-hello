@@ -1,3 +1,16 @@
+.poll-border {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.poll-border.picked {
+  border-color: #1691BA;
+  color: #1691BA;
+  background-color: rgb(208, 242, 253);
+}
+
 .poll-option {
   margin-left: 30px;
   display: table-row;
@@ -18,6 +31,6 @@
   fill: currentColor;
   color: #eee;
 }
-.select-option.picked svg {
+.picked .select-option svg {
   color: #1691BA;
 }

@@ -2,24 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setActivePage } from '../../actions'
+import pollService from '../../actions/poll-service'
 import PollOption from './poll-option/PollOption'
 import './Poll.css';
 
 class Poll extends Component {
+  componentWillMount() {
+    if (!this.props.pollQuestions.length) {
+      pollService.loadQuestions(this.props.dispatch);
+    }
+  }
+
   render() {
-    let questionContent = (question) => {
-      return <div>
-          <div>{question.text}</div>
-          {question.options.map((option) =>
-            <PollOption option={option}/>
+    let questionContent = (question, index) => {
+      return <div className="poll-question" key={index}>
+          <div className="poll-question-text">{question.text}</div>
+          {question.options.map((option, index) =>
+            <PollOption question={question} option={option} key={index}/>
           )}
         </div>
     }
 
     let mainContent = () => {
       if (this.props.pollQuestions.length) {
-        return this.props.pollQuestions.map((question) =>
-          questionContent(question)
+        return this.props.pollQuestions.map((question, index) =>
+          questionContent(question, index)
         )
       } else {
         return <div>Retrieving data...</div>
@@ -50,6 +57,7 @@ const mapDispatchToProps = dispatch => {
     gotoResults: event => {
       dispatch(setActivePage('results-page'))
     },
+    dispatch
   }
 }
 

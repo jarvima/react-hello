@@ -1,0 +1,29 @@
+.option-result {
+  display: table-row;
+}
+
+.graph-wrapper {
+  display: table-cell;
+  width: 60%;
+  text-align: right;
+}
+.option-graph {
+  border: 1px solid chocolate;
+  background-color: coral;
+  border-radius: 4px;
+  display: inline-block;
+  height: 14px;
+}
+
+.option-result-text {
+  display: table-cell;
+  width: 40%;
+  padding-left: 4px;
+}
+.option-result-box {
+  height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 128px;
+  text-overflow: ellipsis;
+}

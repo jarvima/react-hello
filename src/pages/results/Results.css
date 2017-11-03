@@ -1,3 +1,4 @@
-.option-result {
-  color: blue;
+.options-wrapper {
+  display: table;
+  width: 100%;
 }

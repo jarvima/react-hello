@@ -2,7 +2,7 @@ function xhr(method, url, headers, data, cb) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open(method, url, true);
   xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+    if (xmlhttp.readyState === XMLHttpRequest.DONE) {
       cb(xmlhttp);
     }
   }

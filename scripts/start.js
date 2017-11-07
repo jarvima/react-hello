@@ -59,7 +59,7 @@ choosePort(HOST, DEFAULT_PORT)
     // Load proxy config
     const proxySetting = {//require(paths.appPackageJson).proxy;
       "/": {
-        target: "http://localhost:8080",
+        target: "http://localhost:8040",
         secure: false,
         changeOrigin: true
       }

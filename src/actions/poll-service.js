@@ -10,7 +10,6 @@ const getQuestions = () => {
 
   return xhr.post('/api/poll/questions-list', data)
   .then((res) => {
-    console.log('poll list res:', res)
     if (res.responseData.errorMessage) {
       console.log('error getting questions list:', res);
       return {};
@@ -23,6 +22,33 @@ const getResults = () => {
   return getQuestions();
 }
 
+const postOptionPick = (question, option, unpickOption) => {
+  var data = {
+    eventKey: 'rwx',
+    pollKey: 'pwa',
+    question: {
+      index: question.key
+    },
+    pickOption: {
+      index: option.key
+    }
+  }
+  if (unpickOption) {
+    data.unpickOption = {
+      index: unpickOption.key
+    }
+  }
+
+  return xhr.post('/api/poll/pick-option', data)
+  .then((res) => {
+    if (res.responseData.errorMessage) {
+      console.log('error picking option:', res);
+      return {};
+    }
+    return res.responseData.questions;
+  })
+}
+
 const pollService = {};
 
 pollService.loadQuestions = (dispatch) => {
@@ -32,10 +58,9 @@ pollService.loadQuestions = (dispatch) => {
 
   getQuestions()
   .then((result) => {
-    console.log('poll questions result:', result)
-    setTimeout(() => {
+    //setTimeout(() => {
       dispatch(setPollQuestions(result))
-    }, 500)
+    //}, 500) // to test empty state
   })
 }
 
@@ -46,27 +71,30 @@ pollService.loadResults = (dispatch) => {
 
   getResults()
   .then((result) => {
-    console.log('poll questions result:', result)
-    setTimeout(() => {
+    //setTimeout(() => {
       dispatch(setPollResults(result))
-    }, 500)
+    //}, 500) // to test empty state
   })
 }
 
 pollService.pickOption = (dispatch, question, option) => {
-  // TODO hit pick option endpoint
-  getResults()
+  var unpickOption = null
+  question.options.forEach((opt) => {
+    if (opt.picked) {
+      unpickOption = opt
+    }
+  })
+
+  postOptionPick(question, option, unpickOption)
   .then((result) => {
-    console.log('poll questions result:', result)
-    setTimeout(() => {
-      dispatch(setPollResults(result))
-    }, 500)
+    dispatch(setPollResults(result))
   })
 
   dispatch({
     type: 'PICK_OPTION',
     question,
     option,
+    unpickOption,
   })
 }
 

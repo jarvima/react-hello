@@ -28,7 +28,7 @@ PollApp.propTypes = {
 }
 
 const mapStateToProps = state => {
-  console.log('PollApp mapStateToProps:', state)
+  //console.log('PollApp mapStateToProps:', state)
   return {
     activePage2: state.activePage,
   }

@@ -20,13 +20,16 @@ class Result extends Component {
       return { display: 'none' }
     }
 
+    var option = this.props.option;
+    var text = option.shortText || option.text;
+
     return (
       <div className="option-result">
         <div className="graph-wrapper">
           <span className="option-graph" style={graphStyle()}></span>
         </div>
         <div className="option-result-text">
-          <div className="option-result-box">{this.props.option.text}</div>
+          <div className="option-result-box">{text}</div>
         </div>
       </div>
     );
